@@ -1,86 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-
-enum completionState
-{
-    COMPLETE,
-    INCOMPLETE
-};
-
-struct Todo
-{
-    int id;
-    static int next_id;
-    std::string name;
-    int priority;
-    completionState completion_state;
-
-    Todo()
-    {
-        id = ++next_id;
-    }
-};
-
-int Todo::next_id{0};
-
-bool comparePriority(const Todo &a, const Todo &b)
-{
-    return a.priority < b.priority;
-}
-
-Todo *findTodo(std::vector<Todo> &todo_list, int todo_id)
-{
-    auto it = std::find_if(todo_list.begin(), todo_list.end(),
-                           [todo_id](const Todo &t)
-                           { return todo_id == t.id; });
-    if (it != todo_list.end())
-    {
-        return &(*it); // return pointer to found Todo
-    }
-    return nullptr; // not found
-}
-
-int clearBuffer()
-{
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    return 0;
-}
-
-Todo createTodo()
-{
-    Todo todo;
-
-    std::cout << "Enter a task: ";
-    std::getline(std::cin, todo.name);
-    std::cout << "Enter the priority: ";
-
-    while (!(std::cin >> todo.priority))
-    {
-        std::cout << "Enter a valid number: ";
-        std::cin.clear();
-        clearBuffer();
-    }
-
-    clearBuffer();
-    return todo;
-}
-
-Todo updateTodo(Todo &todo, int task_id)
-{
-    std::cout << "Enter an ID: ";
-    std::cin >> task_id;
-    std::cout << "Enter new name: ";
-    std::cin >> todo.name;
-    std::cout << "Enter new priority: ";
-    std::cin >> todo.priority;
-
-    return todo;
-}
+#include "TodoUtils.h"
 
 int main()
 {
-
     std::ofstream outputFile("tasks.txt");
     std::vector<Todo> todo_list;
 
@@ -97,12 +21,19 @@ int main()
             std::cin >> choice;
             clearBuffer();
 
+            if (choice == 4)
+            {
+                break;
+            }
+
             switch (choice)
             {
             case 1:
                 todo_list.push_back(createTodo());
                 break;
             case 2:
+                std::cout << "Enter an ID: ";
+                std::cin >> task_id;
                 if (Todo *todo = findTodo(todo_list, task_id))
                 {
                     updateTodo(*todo, task_id);
@@ -125,24 +56,11 @@ int main()
                     std::cout << "task not found with ID: " << task_id << '\n';
                 }
                 break;
-            case 4:
-                return 0;
-
             default:
                 break;
             }
 
-            std::sort(todo_list.begin(), todo_list.end(), comparePriority);
-
-            if (todo_list.size() == 0)
-            {
-                std::cout << "No tasks found\n";
-            }
-
-            for (const auto &todo : todo_list)
-            {
-                outputFile << todo.id << " -> " << todo.name << " -> " << todo.priority << "\n";
-            }
+            printTodoList(todo_list);
         }
         else
         {
@@ -150,7 +68,6 @@ int main()
         }
     }
 
-    outputFile.close();
-
+    writeToFile(todo_list, outputFile);
     return 0;
 }
