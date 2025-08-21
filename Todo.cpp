@@ -34,7 +34,7 @@ void Todo::setCompletionState(completionState state)
 {
     this->completion_state = state;
 }
-std::string Todo::printCompletionState()
+std::string Todo::printCompletionStateStr()
 {
     return completion_state == completionState::COMPLETE ? "COMPLETE" : "INCOMPLETE";
 }

@@ -74,7 +74,7 @@ void updateCompletionState(Todo &todo)
             : completionState::INCOMPLETE);
 
     std::cout << "Task " << todo.getId() << " is now "
-              << (todo.printCompletionState())
+              << (todo.printCompletionStateStr())
               << '\n';
 }
 
@@ -85,7 +85,7 @@ void writeToFile(std::vector<Todo> &todo_list, std::ofstream &outputFile)
         outputFile << todo.getId()
                    << " -> " << todo.getName()
                    << " -> " << todo.getPriority()
-                   << " -> " << (todo.printCompletionState())
+                   << " -> " << (todo.printCompletionStateStr())
                    << "\n";
     }
 
@@ -110,7 +110,7 @@ void printTodoList(std::vector<Todo> &todo_list)
             << " -> "
             << todo.getPriority()
             << " -> "
-            << (todo.printCompletionState())
+            << (todo.printCompletionStateStr())
             << "\n";
     }
 }

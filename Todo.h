@@ -19,7 +19,7 @@ class Todo{
         // Constructor
         Todo(const std::string &name="", int priority=0);
 
-        std::string printCompletionState();
+        std::string printCompletionStateStr();
 
         // Getters
         int getId();
