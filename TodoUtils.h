@@ -4,7 +4,6 @@
 #include "Todo.h"
 #include <vector>
 #include <fstream>
-#include <functional>
 
 bool comparePriority(Todo &a, Todo &b);
 int clearBuffer();

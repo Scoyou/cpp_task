@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
-#include <functional>
 
 bool comparePriority(Todo &a, Todo &b)
 {
