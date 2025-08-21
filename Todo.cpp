@@ -1,4 +1,5 @@
 #include "Todo.h"
+#include <iostream>
 
 int Todo::next_id{0};
 
@@ -32,4 +33,8 @@ void Todo::setPriority(int priority)
 void Todo::setCompletionState(completionState state)
 {
     this->completion_state = state;
+}
+std::string Todo::printCompletionState()
+{
+    return completion_state == completionState::COMPLETE ? "COMPLETE" : "INCOMPLETE";
 }
