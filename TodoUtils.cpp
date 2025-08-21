@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <functional>
 
 bool comparePriority(Todo &a, Todo &b)
 {
@@ -66,11 +67,27 @@ Todo updateTodo(Todo &todo, int task_id)
     return todo;
 }
 
+void updateCompletionState(Todo &todo)
+{
+    todo.setCompletionState(
+        todo.getCompletionState() == completionState::INCOMPLETE
+            ? completionState::COMPLETE
+            : completionState::INCOMPLETE);
+
+    std::cout << "Task " << todo.getId() << " is now "
+              << (todo.getCompletionState() == completionState::COMPLETE ? "COMPLETE" : "INCOMPLETE")
+              << '\n';
+}
+
 void writeToFile(std::vector<Todo> &todo_list, std::ofstream &outputFile)
 {
     for (auto &todo : todo_list)
     {
-        outputFile << todo.getId() << " -> " << todo.getName() << " -> " << todo.getPriority() << '\n';
+        outputFile << todo.getId()
+                   << " -> " << todo.getName()
+                   << " -> " << todo.getPriority()
+                   << " -> " << (todo.getCompletionState() == completionState::COMPLETE ? "COMPLETE" : "INCOMPLETE")
+                   << "\n";
     }
 
     outputFile.close();
@@ -87,6 +104,14 @@ void printTodoList(std::vector<Todo> &todo_list)
 
     for (auto &todo : todo_list)
     {
-        std::cout << todo.getId() << " -> " << todo.getName() << " -> " << todo.getPriority() << "\n";
+        std::cout
+            << todo.getId()
+            << " -> "
+            << todo.getName()
+            << " -> "
+            << todo.getPriority()
+            << " -> "
+            << (todo.getCompletionState() == completionState::COMPLETE ? "COMPLETE" : "INCOMPLETE")
+            << "\n";
     }
 }

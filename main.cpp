@@ -15,13 +15,13 @@ int main()
             int choice;
             int task_id;
 
-            std::cout << "1) Create task\n2) Update task\n3) Delete task\n4) Exit\n";
+            std::cout << "1) Create task\n2) Update task\n3) Delete task\n4) Update task completion state\n5) Exit\n";
             std::cout << "Select an option: ";
 
             std::cin >> choice;
             clearBuffer();
 
-            if (choice == 4)
+            if (choice == 5)
             {
                 break;
             }
@@ -56,6 +56,19 @@ int main()
                     std::cout << "task not found with ID: " << task_id << '\n';
                 }
                 break;
+            case 4:
+                std::cout << "Enter an ID: ";
+                std::cin >> task_id;
+                if (Todo *todo = findTodo(todo_list, task_id))
+                {
+                    updateCompletionState(*todo);
+                }
+                else
+                {
+                    std::cout << "task not found with ID: " << task_id << '\n';
+                }
+                break;
+
             default:
                 break;
             }

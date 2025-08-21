@@ -4,12 +4,14 @@
 #include "Todo.h"
 #include <vector>
 #include <fstream>
+#include <functional>
 
 bool comparePriority(Todo &a, Todo &b);
 int clearBuffer();
 Todo* findTodo(std::vector<Todo> &todo_list, int todo_id);
 Todo createTodo();
 Todo updateTodo(Todo &todo, int task_id);
+void updateCompletionState(Todo &todo);
 void printTodoList(std::vector<Todo> &todo_list);
 void writeToFile(std::vector<Todo> &todo_list, std::ofstream &outputFile);
 
