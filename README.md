@@ -50,7 +50,7 @@ cd <repository_directory>
 2. **Compile the project**
 
 ```bash
-g++ -std=c++17 -o todo main.cpp Todo.cpp TodoUtils.cpp
+g++ -std=c++17 -o build/todo main.cpp Todo.cpp TodoUtils.cpp
 ```
 
 3. **Run the program**
